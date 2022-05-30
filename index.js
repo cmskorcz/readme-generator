@@ -1,5 +1,6 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
+const generateReadme = require('./src/markdown-template')
 
 const promptProject = () => {
     return inquirer.prompt([
@@ -33,40 +34,42 @@ const promptProject = () => {
         },
 
         {
-            type: 'confirm',
-            name: 'confirmDesc',
-            message: 'Would you like to add a description for your README?',
-            default: true
-        },
-
-        {
             type: 'input',
-            name: 'description',
-            message: 'Please provide a description for your project',
-            when: ({ confirmDesc }) => {
-                if (confirmDesc) {
+            name: 'email',
+            message: 'Enter your email address',
+            validate: emailInput => {
+                if (emailInput) {
                     return true
                 } else {
+                    console.log('Please enter an email address')
                     return false
                 }
             }
         },
 
         {
-            type: 'confirm',
-            name: 'confirmInstall',
-            message: 'Would you like to include installation instructions?',
-            default: true
+            type: 'input',
+            name: 'description',
+            message: 'Please provide a description for your project',
+            validate: descriptionInput => {
+                if (descriptionInput) {
+                    return true
+                } else {
+                    console.log('Please provide a description')
+                    return false
+                }
+            }
         },
 
         {
             type: 'input',
             name: 'installation',
             message: 'Please provide installation instructions',
-            when: ({ confirmInstall }) => {
-                if (confirmInstall) {
+            validate: installationInput => {
+                if (installationInput) {
                     return true
                 } else {
+                    console.log('Please provide installation instructions')
                     return false
                 }
             }
@@ -90,7 +93,7 @@ const promptProject = () => {
             type: 'checkbox',
             name: 'license',
             message: 'Choose a license for the project (Please select only one)',
-            choices: ['GNU AGPLv3', 'GNU GPLv3', 'GNU LGPLv3', 'Mozilla Public License 2.0', 'Apache License 2.0', 'MIT', 'Boost Software License 1.0', 'Unlicensed'],
+            choices: ['AGPLv3', 'GPLv3', 'LGPLv3', 'MPLv2', 'ALv2', 'MIT', 'BSLv1', 'Unlicensed'],
             validate: choiceArr => {
                 if (choiceArr.length === 1) {
                     return true
@@ -131,4 +134,13 @@ const promptProject = () => {
     ]);
 };
 
-promptProject();
+promptProject()
+    .then(projectData => {
+       return generateReadme(projectData);
+    })
+    .then(markdownTemplate => {
+        fs.writeFile('./dist/README.md', markdownTemplate, (err) => {
+            if (err) throw err;
+            console.log('The file has been saved!');
+        })
+    })
