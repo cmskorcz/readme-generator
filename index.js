@@ -139,6 +139,12 @@ promptProject()
        return generateReadme(projectData);
     })
     .then(markdownTemplate => {
+        const dir = './dist';
+
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
+
         fs.writeFile('./dist/README.md', markdownTemplate, (err) => {
             if (err) throw err;
             console.log('The file has been saved!');
