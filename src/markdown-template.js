@@ -6,12 +6,12 @@ module.exports = templateData => {
 ## Description
 ${description}
 ## Table of Contents
-- Installation
-- Usage
-- License
-- Contributing
-- Tests
-- Questions
+- [Installation](#installation)
+- [Usage](#usage)
+- [License](#license)
+- [Contributing](#contributing)
+- [Tests](#tests)
+- [Questions](#questions)
 ### Installation
 ${installation}
 ### Usage
@@ -23,7 +23,7 @@ ${contribution}
 ### Tests
 ${tests}
 ### Questions
-GitHub: ${github}
+GitHub: [${github}](https://www.github.com/${github})
 
 If you have any questions, you may reach out to me via email at: ${email}
 `;
