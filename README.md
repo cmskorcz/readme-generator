@@ -10,6 +10,7 @@ This project uses node and the npm package inquirer in order to generate a profe
 - [Questions](#questions)
 ### Installation
 Clone repo to computer, and then run `npm i` in the command line in order to install dependancies. Then run `node index.js` and follow the prompts in the command line.
+A video tutorial can be viewed at this link: [Tutorial](https://drive.google.com/file/d/17NzDGClHmG9iJ_nelGJga-VSJAtxnhuW/view)
 ### Usage
 This project is free to use to generate README.md files as you see fit.
 ### License
